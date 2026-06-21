@@ -1,195 +1,94 @@
 {
   "unit1": {
-    "title": "Feelings",
+    "title": "Feelings & Emotions",
     "vocabulary": [
-      { "id": "u1_v1", "word": "happy", "meaning": "Vui vẻ", "audio_file": "assets/audio/u1_v1.mp3", "distractors": ["sad", "sleepy", "angry"] },
-      { "id": "u1_v2", "word": "sad", "meaning": "Buồn bã", "audio_file": "assets/audio/u1_v2.mp3", "distractors": ["happy", "hot", "cold"] },
-      { "id": "u1_v3", "word": "sleepy", "meaning": "Buồn ngủ", "audio_file": "assets/audio/u1_v3.mp3", "distractors": ["angry", "sick", "happy"] },
-      { "id": "u1_v4", "word": "angry", "meaning": "Tức giận", "audio_file": "assets/audio/u1_v4.mp3", "distractors": ["scared", "sleepy", "hot"] },
-      { "id": "u1_v5", "word": "sick", "meaning": "Bị ốm/Bệnh", "audio_file": "assets/audio/u1_v5.mp3", "distractors": ["cold", "happy", "sad"] },
-      { "id": "u1_v6", "word": "hot", "meaning": "Nóng nực", "audio_file": "assets/audio/u1_v6.mp3", "distractors": ["cold", "angry", "sleepy"] },
-      { "id": "u1_v7", "word": "cold", "meaning": "Lạnh giá", "audio_file": "assets/audio/u1_v7.mp3", "distractors": ["hot", "sick", "scared"] },
-      { "id": "u1_v8", "word": "scared", "meaning": "Sợ hãi", "audio_file": "assets/audio/u1_v8.mp3", "distractors": ["sick", "angry", "happy"] }
+      {
+        "id": "u1_v1",
+        "word": "Happy",
+        "meaning": "Vui vẻ, hạnh phúc",
+        "distractors": ["Sad", "Sleepy", "Angry"]
+      },
+      {
+        "id": "u1_v2",
+        "word": "Sad",
+        "meaning": "Buồn bã",
+        "distractors": ["Happy", "Sick", "Hot"]
+      },
+      {
+        "id": "u1_v3",
+        "word": "Sleepy",
+        "meaning": "Buồn ngủ",
+        "distractors": ["Scared", "Cold", "Happy"]
+      },
+      {
+        "id": "u1_v4",
+        "word": "Angry",
+        "meaning": "Tức giận, giận dữ",
+        "distractors": ["Sad", "Sick", "Windy"]
+      },
+      {
+        "id": "u1_v5",
+        "word": "Sick",
+        "meaning": "Bị ốm, bị bệnh",
+        "distractors": ["Angry", "Happy", "Cold"]
+      },
+      {
+        "id": "u1_v6",
+        "word": "Hot",
+        "meaning": "Nóng nực",
+        "distractors": ["Cold", "Sad", "Sleepy"]
+      },
+      {
+        "id": "u1_v7",
+        "word": "Cold",
+        "meaning": "Lạnh lẽo",
+        "distractors": ["Hot", "Scared", "Sick"]
+      },
+      {
+        "id": "u1_v8",
+        "word": "Scared",
+        "meaning": "Sợ hãi",
+        "distractors": ["Happy", "Sleepy", "Angry"]
+      }
     ],
     "grammar": [
-      { "id": "u1_g1", "sentence": "I'm scared.", "meaning": "Tớ đang sợ hãi.", "audio_file": "assets/audio/u1_g1.mp3", "distractors": ["I'm happy.", "I'm sick."], "hint_vn": "Cấu trúc: 'I'm + cảm xúc' để diễn tả tâm trạng." },
-      { "id": "u1_g2", "sentence": "Are you scared?", "meaning": "Cậu có sợ không?", "audio_file": "assets/audio/u1_g2.mp3", "distractors": ["Is he scared?", "Are you happy?"], "hint_vn": "Cấu trúc: 'Are you + cảm xúc?' dùng để hỏi bạn bè." }
+      {
+        "id": "u1_g1",
+        "sentence": "I am scared",
+        "meaning": "Con đang sợ hãi",
+        "hint_vn": "Luyện nói câu: Con đang sợ hãi",
+        "distractors": ["happy", "weather", "kitchen", "time"]
+      },
+      {
+        "id": "u1_g2",
+        "sentence": "Are you scared",
+        "meaning": "Bạn có sợ hãi không?",
+        "hint_vn": "Luyện nói câu hỏi: Bạn có sợ hãi không?",
+        "distractors": ["you", "scared", "happy", "like"]
+      }
     ],
     "dialogs": [
-      { "id": "u1_d1", "speaker_machine": "Hi, Beth. How are you?", "suggested_user": "I'm OK. And you?", "audio_file": "assets/audio/u1_d1.mp3", "accept_keywords": ["i am ok", "im ok", "ok", "i am fine", "im fine"], "hint_vn": "Chào Beth, cậu khỏe không? -> Tớ ổn. Còn cậu?" },
-      { "id": "u1_d2", "speaker_machine": "I'm great, thanks. What's that?", "suggested_user": "I don't know.", "audio_file": "assets/audio/u1_d2.mp3", "accept_keywords": ["i dont know", "i do not know", "no idea", "dont know"], "hint_vn": "Tớ khỏe, cám ơn! Cái gì kia thế? -> Tớ không biết nữa." },
-      { "id": "u1_d3", "speaker_machine": "It's a small dog! Are you scared?", "suggested_user": "No, I'm not.", "audio_file": "assets/audio/u1_d3.mp3", "accept_keywords": ["no im not", "no i am not", "no", "i am not scared"], "hint_vn": "Một chú chó nhỏ đấy! Cậu có sợ không? -> Không, tớ không sợ." }
-    ]
-  },
-  "unit2": {
-    "title": "Our House",
-    "vocabulary": [
-      { "id": "u2_v1", "word": "kitchen", "meaning": "Nhà bếp", "audio_file": "assets/audio/u2_v1.mp3", "distractors": ["hall", "yard", "bedroom"] },
-      { "id": "u2_v2", "word": "living room", "meaning": "Phòng khách", "audio_file": "assets/audio/u2_v2.mp3", "distractors": ["closet", "bathroom", "kitchen"] },
-      { "id": "u2_v3", "word": "dining room", "meaning": "Phòng ăn", "audio_file": "assets/audio/u2_v3.mp3", "distractors": ["bedroom", "hall", "yard"] },
-      { "id": "u2_v4", "word": "hall", "meaning": "Sảnh/Hành lang", "audio_file": "assets/audio/u2_v4.mp3", "distractors": ["closet", "kitchen", "bathroom"] },
-      { "id": "u2_v5", "word": "bedroom", "meaning": "Phòng ngủ", "audio_file": "assets/audio/u2_v5.mp3", "distractors": ["dining room", "yard", "living room"] },
-      { "id": "u2_v6", "word": "bathroom", "meaning": "Phòng tắm", "audio_file": "assets/audio/u2_v6.mp3", "distractors": ["kitchen", "closet", "bedroom"] },
-      { "id": "u2_v7", "word": "closet", "meaning": "Tủ quần áo/Tủ âm tường", "audio_file": "assets/audio/u2_v7.mp3", "distractors": ["hall", "dining room", "living room"] },
-      { "id": "u2_v8", "word": "yard", "meaning": "Sân vườn", "audio_file": "assets/audio/u2_v8.mp3", "distractors": ["bathroom", "bedroom", "kitchen"] }
-    ],
-    "grammar": [
-      { "id": "u2_g1", "sentence": "Joey is in the bathroom.", "meaning": "Joey đang ở trong phòng tắm.", "audio_file": "assets/audio/u2_g1.mp3", "distractors": ["Joey is in the yard.", "Joey is in the kitchen."], "hint_vn": "Cấu trúc: 'Tên + is in the + phòng' để nói ai đó đang ở đâu." },
-      { "id": "u2_g2", "sentence": "Where's Joey?", "meaning": "Joey đang ở đâu thế?", "audio_file": "assets/audio/u2_g2.mp3", "distractors": ["Where are you?", "What's his name?"], "hint_vn": "Cấu trúc: 'Where's + Tên?' để hỏi vị trí của ai đó." }
-    ],
-    "dialogs": [
-      { "id": "u2_d1", "speaker_machine": "Hi. I'm Beth. What's your name?", "suggested_user": "My name's Pluto.", "audio_file": "assets/audio/u2_d1.mp3", "accept_keywords": ["my name is pluto", "my names pluto", "pluto", "i am pluto"], "hint_vn": "Chào, tớ là Beth. Tên cậu là gì? -> Tên tớ là Pluto." },
-      { "id": "u2_d2", "speaker_machine": "How old are you?", "suggested_user": "I'm 10.", "audio_file": "assets/audio/u2_d2.mp3", "accept_keywords": ["i am ten", "im ten", "ten", "i am 10"], "hint_vn": "Cậu bao nhiêu tuổi rồi? -> Tớ 10 tuổi." }
-    ]
-  },
-  "unit3": {
-    "title": "Weather",
-    "vocabulary": [
-      { "id": "u3_v1", "word": "sunny", "meaning": "Có nắng", "audio_file": "assets/audio/u3_v1.mp3", "distractors": ["rainy", "cloudy", "foggy"] },
-      { "id": "u3_v2", "word": "cloudy", "meaning": "Nhiều mây", "audio_file": "assets/audio/u3_v2.mp3", "distractors": ["sunny", "windy", "warm"] },
-      { "id": "u3_v3", "word": "windy", "meaning": "Nhiều gió", "audio_file": "assets/audio/u3_v3.mp3", "distractors": ["snowy", "cool", "rainy"] },
-      { "id": "u3_v4", "word": "rainy", "meaning": "Có mưa", "audio_file": "assets/audio/u3_v4.mp3", "distractors": ["sunny", "foggy", "cloudy"] },
-      { "id": "u3_v5", "word": "snowy", "meaning": "Có tuyết rơi", "audio_file": "assets/audio/u3_v5.mp3", "distractors": ["warm", "windy", "cool"] },
-      { "id": "u3_v6", "word": "foggy", "meaning": "Nhiều sương mù", "audio_file": "assets/audio/u3_v6.mp3", "distractors": ["rainy", "sunny", "snowy"] },
-      { "id": "u3_v7", "word": "warm", "meaning": "Ấm áp", "audio_file": "assets/audio/u3_v7.mp3", "distractors": ["cold", "cool", "windy"] },
-      { "id": "u3_v8", "word": "cool", "meaning": "Mát mẻ", "audio_file": "assets/audio/u3_v8.mp3", "distractors": ["hot", "warm", "cloudy"] }
-    ],
-    "grammar": [
-      { "id": "u3_g1", "sentence": "It's windy.", "meaning": "Trời nhiều gió.", "audio_file": "assets/audio/u3_g1.mp3", "distractors": ["It's sunny.", "It's rainy."], "hint_vn": "Cấu trúc: 'It's + thời tiết' để miêu tả thời tiết lúc này." },
-      { "id": "u3_g2", "sentence": "What's the weather like?", "meaning": "Thời tiết thế nào?", "audio_file": "assets/audio/u3_g2.mp3", "distractors": ["What time is it?", "Where are you going?"], "hint_vn": "Cấu trúc: Dùng cụm này để hỏi về tình hình thời tiết." }
-    ],
-    "dialogs": [
-      { "id": "u3_d1", "speaker_machine": "This is my friend, Lisa.", "suggested_user": "Nice to meet you. I'm Jupiter.", "audio_file": "assets/audio/u3_d1.mp3", "accept_keywords": ["nice to meet you", "glad to meet you", "hello lisa", "hi lisa"], "hint_vn": "Đây là bạn của tớ, Lisa. -> Rất vui được gặp cậu. Tớ là Jupiter." },
-      { "id": "u3_d2", "speaker_machine": "Let's go to the park.", "suggested_user": "Good idea.", "audio_file": "assets/audio/u3_d2.mp3", "accept_keywords": ["good idea", "great idea", "ok let go", "yes"], "hint_vn": "Chúng mình cùng ra công viên chơi đi. -> Ý kiến hay đấy." },
-      { "id": "u3_d3", "speaker_machine": "What's your favorite season?", "suggested_user": "I like summer.", "audio_file": "assets/audio/u3_d3.mp3", "accept_keywords": ["i like summer", "summer", "my favorite is summer"], "hint_vn": "Mùa yêu thích của cậu là gì? -> Tớ thích mùa hè." }
-    ]
-  },
-  "unit4": {
-    "title": "Telling Time",
-    "vocabulary": [
-      { "id": "u4_v1", "word": "1:00", "meaning": "1 giờ đúng", "audio_file": "assets/audio/u4_v1.mp3", "distractors": ["2:00", "7:00", "12:00"] },
-      { "id": "u4_v2", "word": "2:00", "meaning": "2 giờ đúng", "audio_file": "assets/audio/u4_v2.mp3", "distractors": ["1:00", "8:00", "12:30"] },
-      { "id": "u4_v3", "word": "7:00", "meaning": "7 giờ đúng", "audio_file": "assets/audio/u4_v3.mp3", "distractors": ["12:45", "2:00", "1:00"] },
-      { "id": "u4_v4", "word": "8:00", "meaning": "8 giờ đúng", "audio_file": "assets/audio/u4_v4.mp3", "distractors": ["7:00", "12:15", "12:00"] },
-      { "id": "u4_v5", "word": "12:00", "meaning": "12 giờ đúng", "audio_file": "assets/audio/u4_v5.mp3", "distractors": ["12:30", "12:15", "1:00"] },
-      { "id": "u4_v6", "word": "12:15", "meaning": "12 giờ 15 phút", "audio_file": "assets/audio/u4_v6.mp3", "distractors": ["12:00", "12:45", "2:00"] },
-      { "id": "u4_v7", "word": "12:30", "meaning": "12 giờ 30 phút / 12 giờ rưỡi", "audio_file": "assets/audio/u4_v7.mp3", "distractors": ["12:15", "7:00", "8:00"] },
-      { "id": "u4_v8", "word": "12:45", "meaning": "12 giờ 45 phút", "audio_file": "assets/audio/u4_v8.mp3", "distractors": ["12:30", "12:00", "1:00"] }
-    ],
-    "grammar": [
-      { "id": "u4_g1", "sentence": "It's 12:00.", "meaning": "Bây giờ là 12 giờ.", "audio_file": "assets/audio/u4_g1.mp3", "distractors": ["It's 1:00.", "It's 7:00."], "hint_vn": "Cấu trúc: 'It's + giờ' để trả lời thời gian." },
-      { "id": "u4_g2", "sentence": "What time is it?", "meaning": "Bây giờ là mấy giờ rồi?", "audio_file": "assets/audio/u4_g2.mp3", "distractors": ["What's the weather like?", "Where's Joey?"], "hint_vn": "Cấu trúc: Dùng mẫu câu này khi con muốn hỏi giờ giấc." }
-    ],
-    "dialogs": [
-      { "id": "u4_d1", "speaker_machine": "I like your watch.", "suggested_user": "Thanks.", "audio_file": "assets/audio/u4_d1.mp3", "accept_keywords": ["thank you", "thanks", "thank you very much"], "hint_vn": "Tớ rất thích chiếc đồng hồ của cậu. -> Cảm ơn cậu." },
-      { "id": "u4_d2", "speaker_machine": "It's time to eat lunch.", "suggested_user": "Don't forget your hat.", "audio_file": "assets/audio/u4_d2.mp3", "accept_keywords": ["dont forget your hat", "ok", "sure", "i know"], "hint_vn": "Đến giờ ăn trưa rồi đấy. -> Đừng quên mũ của cậu nhé." }
-    ]
-  },
-  "unit5": {
-    "title": "In a Toy Store",
-    "vocabulary": [
-      { "id": "u5_v1", "word": "kites", "meaning": "Những chiếc diều", "audio_file": "assets/audio/u5_v1.mp3", "distractors": ["toy cars", "yo-yos", "rockets"] },
-      { "id": "u5_v2", "word": "video games", "meaning": "Trò chơi điện tử", "audio_file": "assets/audio/u5_v2.mp3", "distractors": ["board games", "balloons", "comic books"] },
-      { "id": "u5_v3", "word": "board games", "meaning": "Cờ bàn/Trò chơi giấy", "audio_file": "assets/audio/u5_v3.mp3", "distractors": ["video games", "kites", "toy cars"] },
-      { "id": "u5_v4", "word": "toy cars", "meaning": "Ô tô đồ chơi", "audio_file": "assets/audio/u5_v4.mp3", "distractors": ["rockets", "yo-yos", "balloons"] },
-      { "id": "u5_v5", "word": "comic books", "meaning": "Truyện tranh", "audio_file": "assets/audio/u5_v5.mp3", "distractors": ["board games", "kites", "video games"] },
-      { "id": "u5_v6", "word": "yo-yos", "meaning": "Đồ chơi yo-yo", "audio_file": "assets/audio/u5_v6.mp3", "distractors": ["balloons", "toy cars", "rockets"] },
-      { "id": "u5_v7", "word": "balloons", "meaning": "Bóng bay", "audio_file": "assets/audio/u5_v7.mp3", "distractors": ["comic books", "kites", "yo-yos"] },
-      { "id": "u5_v8", "word": "rockets", "meaning": "Tên lửa đồ chơi", "audio_file": "assets/audio/u5_v8.mp3", "distractors": ["toy cars", "video games", "board games"] }
-    ],
-    "grammar": [
-      { "id": "u5_g1", "sentence": "These are yo-yos.", "meaning": "Đây là những chiếc yo-yo.", "audio_file": "assets/audio/u5_g1.mp3", "distractors": ["Those are kites.", "These are toy cars."], "hint_vn": "Dùng 'These are + đồ vật số nhiều' khi đồ vật ở ngay GẦN con." },
-      { "id": "u5_g2", "sentence": "Those are kites.", "meaning": "Kia là những chiếc diều.", "audio_file": "assets/audio/u5_g2.mp3", "distractors": ["These are yo-yos.", "Those are balloons."], "hint_vn": "Dùng 'Those are + đồ vật số nhiều' khi đồ vật ở XA con." },
-      { "id": "u5_g3", "sentence": "What are these?", "meaning": "Đây là những cái gì thế này?", "audio_file": "assets/audio/u5_g3.mp3", "distractors": ["What are those?", "What time is it?"], "hint_vn": "Câu hỏi về các đồ vật ở số nhiều nằm ở GẦN." },
-      { "id": "u5_g4", "sentence": "What are those?", "meaning": "Kia là những cái gì thế kia?", "audio_file": "assets/audio/u5_g4.mp3", "distractors": ["What are these?", "Where is Joey?"], "hint_vn": "Câu hỏi về các đồ vật ở số nhiều nằm ở XA." }
-    ],
-    "dialogs": [
-      { "id": "u5_d1", "speaker_machine": "Which toy car do you want?", "suggested_user": "The red one.", "audio_file": "assets/audio/u5_d1.mp3", "accept_keywords": ["the red one", "red one", "i want the red one"], "hint_vn": "Con muốn chiếc ô tô đồ chơi nào? -> Chiếc màu đỏ ạ." },
-      { "id": "u5_d2", "speaker_machine": "May I have that comic book, please?", "suggested_user": "Here you are.", "audio_file": "assets/audio/u5_d2.mp3", "accept_keywords": ["here you are", "here it is", "ok sure"], "hint_vn": "Cho tớ mượn/lấy cuốn truyện tranh kia được không? -> Của cậu đây." }
-    ]
-  },
-  "unit6": {
-    "title": "Eating Out",
-    "vocabulary": [
-      { "id": "u6_v1", "word": "spaghetti", "meaning": "Mì Ý", "audio_file": "assets/audio/u6_v1.mp3", "distractors": ["French fries", "salad", "soup"] },
-      { "id": "u6_v2", "word": "French fries", "meaning": "Khoai tây chiên", "audio_file": "assets/audio/u6_v2.mp3", "distractors": ["ice cream", "fish", "noodles"] },
-      { "id": "u6_v3", "word": "fish", "meaning": "Cá", "audio_file": "assets/audio/u6_v3.mp3", "distractors": ["fruit", "spaghetti", "salad"] },
-      { "id": "u6_v4", "word": "salad", "meaning": "Rau trộn/Xà lách", "audio_file": "assets/audio/u6_v4.mp3", "distractors": ["soup", "fish", "ice cream"] },
-      { "id": "u6_v5", "word": "ice cream", "meaning": "Kem", "audio_file": "assets/audio/u6_v5.mp3", "distractors": ["noodles", "fruit", "French fries"] },
-      { "id": "u6_v6", "word": "noodles", "meaning": "Mì/Phở", "audio_file": "assets/audio/u6_v6.mp3", "distractors": ["spaghetti", "soup", "fish"] },
-      { "id": "u6_v7", "word": "fruit", "meaning": "Trái cây/Hoa quả", "audio_file": "assets/audio/u6_v7.mp3", "distractors": ["salad", "ice cream", "French fries"] },
-      { "id": "u6_v8", "word": "soup", "meaning": "Canh/Súp", "audio_file": "assets/audio/u6_v8.mp3", "distractors": ["noodles", "fish", "fruit"] }
-    ],
-    "grammar": [
-      { "id": "u6_g1", "sentence": "I want noodles.", "meaning": "Tớ muốn ăn mì.", "audio_file": "assets/audio/u6_g1.mp3", "distractors": ["We want soup.", "I want fish."], "hint_vn": "Cấu trúc: 'I want + món ăn' dùng để gọi món cho bản thân." },
-      { "id": "u6_g2", "sentence": "We want soup.", "meaning": "Chúng tớ muốn gọi món súp.", "audio_file": "assets/audio/u6_g2.mp3", "distractors": ["I want noodles.", "We want fruit."], "hint_vn": "Cấu trúc: 'We want + món ăn' dùng khi gọi món cho từ 2 người trở lên." },
-      { "id": "u6_g3", "sentence": "What do you want?", "meaning": "Con muốn ăn món gì?", "audio_file": "assets/audio/u6_g3.mp3", "distractors": ["What are these?", "What time is it?"], "hint_vn": "Câu hỏi dùng để hỏi mong muốn gọi món của người đối diện." }
-    ],
-    "dialogs": [
-      { "id": "u6_d1", "speaker_machine": "I'm really hungry.", "suggested_user": "Me, too.", "audio_file": "assets/audio/u6_d1.mp3", "accept_keywords": ["me too", "so am i", "i am hungry too"], "hint_vn": "Tớ thực sự đói bụng rồi đấy. -> Tớ cũng vậy." },
-      { "id": "u6_d2", "speaker_machine": "Can you use chopsticks?", "suggested_user": "No, I can't. Can you?", "audio_file": "assets/audio/u6_d2.mp3", "accept_keywords": ["no i cant can you", "no i cant", "no", "no cannot"], "hint_vn": "Cậu có biết dùng đũa không? -> Không, tớ không biết. Còn cậu biết không?" },
-      { "id": "u6_d3", "speaker_machine": "Do you like tacos?", "suggested_user": "Yes, we do. These are great!", "audio_file": "assets/audio/u6_d3.mp3", "accept_keywords": ["yes we do", "yes", "yes we like", "these are great"], "hint_vn": "Các cậu có thích món bánh Tacos không? -> Có chứ. Những món này tuyệt lắm!" }
-    ]
-  },
-  "unit7": {
-    "title": "Art Class",
-    "vocabulary": [
-      { "id": "u7_v1", "word": "scissors", "meaning": "Cái kéo", "audio_file": "assets/audio/u7_v1.mp3", "distractors": ["paints", "stickers", "pins"] },
-      { "id": "u7_v2", "word": "paintbrushes", "meaning": "Cọ vẽ/Bút lông màu", "audio_file": "assets/audio/u7_v2.mp3", "distractors": ["scissors", "pins", "stickers"] },
-      { "id": "u7_v3", "word": "paints", "meaning": "Màu vẽ/Hộp màu", "audio_file": "assets/audio/u7_v3.mp3", "distractors": ["paintbrushes", "scissors", "pins"] },
-      { "id": "u7_v4", "word": "stickers", "meaning": "Hình dán nhãn", "audio_file": "assets/audio/u7_v4.mp3", "distractors": ["paints", "paintbrushes", "scissors"] },
-      { "id": "u7_v5", "word": "pins", "meaning": "Đinh ghim/Chốt ghim giấy", "audio_file": "assets/audio/u7_v5.mp3", "distractors": ["stickers", "paints", "paintbrushes"] }
-    ],
-    "grammar": [
-      { "id": "u7_g1", "sentence": "The scissors are in the box.", "meaning": "Cái kéo đang ở trong hộp.", "audio_file": "assets/audio/u7_g1.mp3", "distractors": ["The scissors are under the box.", "The scissors are on the box."], "hint_vn": "Nhớ dùng vị trí giới từ 'in' (trong), 'on' (trên), 'under' (dưới)." },
-      { "id": "u7_g2", "sentence": "Where are the scissors?", "meaning": "Cái kéo đang ở đâu rồi?", "audio_file": "assets/audio/u7_g2.mp3", "distractors": ["Where is Joey?", "What are these?"], "hint_vn": "Vì 'scissors' là đồ vật số nhiều, con phải hỏi bằng 'Where are' thay vì 'Where is' nhé." }
-    ],
-    "dialogs": [
-      { "id": "u7_d1", "speaker_machine": "What's your favorite class?", "suggested_user": "Art class.", "audio_file": "assets/audio/u7_d1.mp3", "accept_keywords": ["art class", "i like art class", "my favorite is art class"], "hint_vn": "Môn học yêu thích nhất của con là gì? -> Môn Mỹ thuật ạ." },
-      { "id": "u7_d2", "speaker_machine": "How do you spell fox?", "suggested_user": "f-o-x", "audio_file": "assets/audio/u7_d2.mp3", "accept_keywords": ["f o x", "fox"], "hint_vn": "Từ con cáo đánh vần thế nào nhỉ? -> f-o-x." }
-    ]
-  },
-  "unit8": {
-    "title": "After School",
-    "vocabulary": [
-      { "id": "u8_v1", "word": "English class", "meaning": "Lớp học tiếng Anh", "audio_file": "assets/audio/u8_v1.mp3", "distractors": ["math class", "dance class", "swimming class"] },
-      { "id": "u8_v2", "word": "math class", "meaning": "Lớp học toán", "audio_file": "assets/audio/u8_v2.mp3", "distractors": ["English class", "calligraphy class", "soccer practice"] },
-      { "id": "u8_v3", "word": "calligraphy class", "meaning": "Lớp học luyện chữ đẹp/Thư pháp", "audio_file": "assets/audio/u8_v3.mp3", "distractors": ["judo practice", "math class", "dance class"] },
-      { "id": "u8_v4", "word": "swimming class", "meaning": "Lớp học bơi", "audio_file": "assets/audio/u8_v4.mp3", "distractors": ["baseball practice", "English class", "soccer practice"] },
-      { "id": "u8_v5", "word": "dance class", "meaning": "Lớp học múa/nhảy", "audio_file": "assets/audio/u8_v5.mp3", "distractors": ["calligraphy class", "math class", "judo practice"] },
-      { "id": "u8_v6", "word": "soccer practice", "meaning": "Buổi tập luyện bóng đá", "audio_file": "assets/audio/u8_v6.mp3", "distractors": ["baseball practice", "swimming class", "English class"] },
-      { "id": "u8_v7", "word": "judo practice", "meaning": "Buổi tập luyện võ Judo", "audio_file": "assets/audio/u8_v7.mp3", "distractors": ["soccer practice", "dance class", "math class"] },
-      { "id": "u8_v8", "word": "baseball practice", "meaning": "Buổi tập luyện bóng chày", "audio_file": "assets/audio/u8_v8.mp3", "distractors": ["swimming class", "judo practice", "calligraphy class"] }
-    ],
-    "grammar": [
-      { "id": "u8_g1", "sentence": "I'm going to judo practice.", "meaning": "Tớ đang đi đến buổi tập võ Judo.", "audio_file": "assets/audio/u8_g1.mp3", "distractors": ["I'm going to math class.", "I'm going to dance class."], "hint_vn": "Cấu trúc: 'I'm going to + địa điểm/hoạt động' để nói con đang đi đâu." },
-      { "id": "u8_g2", "sentence": "Where are you going?", "meaning": "Con đang đi đâu thế?", "audio_file": "assets/audio/u8_g2.mp3", "distractors": ["Where are the scissors?", "What do you want?"], "hint_vn": "Mẫu câu chuẩn dùng để hỏi điểm đến hành trình của một ai đó." }
-    ],
-    "dialogs": [
-      { "id": "u8_d1", "speaker_machine": "Are you ready to go?", "suggested_user": "Yes. How about you? / Uh-huh. Let's go.", "audio_file": "assets/audio/u8_d1.mp3", "accept_keywords": ["yes how about you", "uh huh lets go", "yes im ready", "lets go"], "hint_vn": "Con đã sẵn sàng đi chưa? -> Rồi ạ. Còn mẹ thì sao? / Dạ vâng, chúng ta đi thôi." },
-      { "id": "u8_d2", "speaker_machine": "Bye. See you at soccer practice.", "suggested_user": "See you then.", "audio_file": "assets/audio/u8_d2.mp3", "accept_keywords": ["see you then", "goodbye", "see you", "bye"], "hint_vn": "Tạm biệt. Hẹn gặp cậu ở buổi tập bóng đá nhé. -> Hẹn gặp cậu lúc đó." }
-    ]
-  },
-  "unit9": {
-    "title": "Class Party",
-    "vocabulary": [
-      { "id": "u9_v1", "word": "eating a snack", "meaning": "Đang ăn nhẹ/ăn quà vặt", "audio_file": "assets/audio/u9_v1.mp3", "distractors": ["drinking juice", "reading a book", "drawing a map"] },
-      { "id": "u9_v2", "word": "drinking juice", "meaning": "Đang uống nước trái cây", "audio_file": "assets/audio/u9_v2.mp3", "distractors": ["eating a snack", "watching a DVD", "painting a picture"] },
-      { "id": "u9_v3", "word": "playing the drums", "meaning": "Đang đánh trống", "audio_file": "assets/audio/u9_v3.mp3", "distractors": ["feeding the hamster", "reading a book", "drinking juice"] },
-      { "id": "u9_v4", "word": "watching a DVD", "meaning": "Đang xem đĩa phim/video", "audio_file": "assets/audio/u9_v4.mp3", "distractors": ["painting a picture", "playing the drums", "eating a snack"] },
-      { "id": "u9_v5", "word": "reading a book", "meaning": "Đang đọc sách", "audio_file": "assets/audio/u9_v5.mp3", "distractors": ["drawing a map", "feeding the hamster", "watching a DVD"] },
-      { "id": "u9_v6", "word": "feeding the hamster", "meaning": "Đang cho chuột chuột Hamster ăn", "audio_file": "assets/audio/u9_v6.mp3", "distractors": ["playing the drums", "drinking juice", "painting a picture"] },
-      { "id": "u9_v7", "word": "painting a picture", "meaning": "Đang tô màu/vẽ một bức tranh", "audio_file": "assets/audio/u9_v7.mp3", "distractors": ["watching a DVD", "eating a snack", "drawing a map"] },
-      { "id": "u9_v8", "word": "drawing a map", "meaning": "Đang vẽ một bản đồ", "audio_file": "assets/audio/u9_v8.mp3", "distractors": ["reading a book", "playing the drums", "feeding the hamster"] }
-    ],
-    "grammar": [
-      { "id": "u9_g1", "sentence": "He's drawing a map.", "meaning": "Cậu ấy đang vẽ một bản đồ.", "audio_file": "assets/audio/u9_g1.mp3", "distractors": ["He's reading a book.", "He's eating a snack."], "hint_vn": "Thì hiện tại tiếp diễn: 'He's + động từ thêm -ing' diễn tả hành động đang xảy ra." },
-      { "id": "u9_g2", "sentence": "What's Mojo doing?", "meaning": "Bạn Mojo đang làm cái gì thế?", "audio_file": "assets/audio/u9_g2.mp3", "distractors": ["What time is it?", "What do you want?"], "hint_vn": "Mẫu câu hỏi xem một người thứ ba đang thực hiện hành động gì." }
-    ],
-    "dialogs": [
-      { "id": "u9_d1", "speaker_machine": "Goodbye, Pluto. I had a great time. Thank you.", "suggested_user": "This is for you.", "audio_file": "assets/audio/u9_d1.mp3", "accept_keywords": ["this is for you", "here is your present", "for you"], "hint_vn": "Tạm biệt Pluto. Tớ đã có một khoảng thời gian rất vui. Cảm ơn cậu nhé. -> Cái này dành cho cậu đấy." },
-      { "id": "u9_d2", "speaker_machine": "A soccer ball. Thanks.", "suggested_user": "You're welcome.", "audio_file": "assets/audio/u9_d2.mp3", "accept_keywords": ["you are welcome", "youre welcome", "no problem", "my pleasure"], "hint_vn": "Một quả bóng đá này! Cám ơn cậu nhé. -> Không có gì đâu ạ." }
+      {
+        "id": "u1_d1",
+        "speaker_machine": "Hi, Beth. How are you?",
+        "suggested_user": "I am OK. And you?",
+        "hint_vn": "Beth chào và hỏi thăm. Con hãy đáp lại là con ổn nhé!",
+        "accept_keywords": ["i am ok", "ok and you", "i'm ok and you"]
+      },
+      {
+        "id": "u1_d2",
+        "speaker_machine": "I am great, thanks. What is that?",
+        "suggested_user": "I do not know",
+        "hint_vn": "Beth bảo bạn ấy tuyệt và hỏi vật gì kia. Con hãy đáp là con không biết.",
+        "accept_keywords": ["i do not know", "i don't know", "don't know"]
+      },
+      {
+        "id": "u1_d3",
+        "speaker_machine": "It is a small dog! Are you scared?",
+        "suggested_user": "No, I am not",
+        "hint_vn": "Beth bảo đó là chú chó nhỏ và hỏi con sợ không. Hãy trả lời là không nhé!",
+        "accept_keywords": ["no i am not", "no i'm not", "i am not"]
+      }
     ]
   }
 }
-

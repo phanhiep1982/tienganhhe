@@ -1,7 +1,7 @@
 let ALL_DATA = null;
 let currentUnitId = "";
 let currentVocabList = [];
-let currentGamePhase = 1; // 1: Trắc nghiệm Vocab, 2: Nói Vocab, 3: Nói Ngữ Pháp, 4: Hội Thoại
+let currentGamePhase = 1; // 1: Trắc nghiệm Vocab, 15: Sắp xếp chữ (1.5), 2: Nói Vocab, 25: Điền khuyết câu (2.5), 3: Hội thoại (Vòng 3)
 let currentIndex = 0;
 let totalTasks = 0;
 let completedTasks = 0;
@@ -12,6 +12,10 @@ let isFallbackActive = false;
 let isListening = false;
 let attemptCounter = 0;
 const MAX_ATTEMPTS = 3;
+
+// Biến bổ trợ riêng cho Vòng 1.5 Sắp xếp chữ cái
+let spellingCurrentAnswer = [];
+let spellingTargetWord = "";
 
 window.addEventListener('DOMContentLoaded', () => {
     const jsonPath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) + '/data.json';
@@ -56,7 +60,9 @@ function selectUnit(unitId) {
     currentGamePhase = 1;
     currentIndex = 0;
     completedTasks = 0;
-    totalTasks = currentVocabList.length * 2 + unitData.grammar.length + unitData.dialogs.length;
+    
+    // TÍNH TOÁN CHUẨN TỔNG SỐ NHIỆM VỤ CHO CẢ 5 VÒNG CHƠI KHÉP KÍN
+    totalTasks = (currentVocabList.length * 3) + (unitData.grammar.length * 2) + unitData.dialogs.length;
     
     initSpeechAPI();
     document.getElementById('control-area').style.display = 'flex';
@@ -76,6 +82,7 @@ function updateProgressBar() {
     if (bar) bar.style.width = percentage + '%';
 }
 
+// MẠCH ĐIỀU PHỐI VẬN HÀNH TUÂN THỦ CHẶT CHẼ 5 VÒNG CHƠI (1 -> 1.5 -> 2 -> 2.5 -> 3)
 function loadTask() {
     isFallbackActive = false;
     attemptCounter = 0;
@@ -89,36 +96,63 @@ function loadTask() {
     setMicListeningState(false);
     isListening = false;
     
+    if(document.getElementById('avatar-beth')) document.getElementById('avatar-beth').classList.remove('speaking');
+    if(document.getElementById('avatar-van')) document.getElementById('avatar-van').classList.remove('speaking');
+
     let unitData = ALL_DATA[currentUnitId];
 
+    // VÒNG 1: Trắc nghiệm hình ảnh nhận biết từ vựng
     if (currentGamePhase === 1) {
         if (currentIndex >= currentVocabList.length) {
-            currentGamePhase = 2; currentIndex = 0;
+            currentGamePhase = 15; currentIndex = 0; // Chuyển sang Vòng 1.5
         } else {
             renderQuizLayout(currentVocabList[currentIndex], 'word');
             return;
         }
     }
 
+    // VÒNG 1.5: Thử thách sắp xếp chữ cái thành từ vựng đúng
+    if (currentGamePhase === 15) {
+        if (currentIndex >= currentVocabList.length) {
+            currentGamePhase = 2; currentIndex = 0; // Chuyển sang Vòng 2
+        } else {
+            renderSpellingLayout(currentVocabList[currentIndex]);
+            return;
+        }
+    }
+
+    // VÒNG 2: Luyện phát âm Micro từ vựng đơn
     if (currentGamePhase === 2) {
         if (currentIndex >= currentVocabList.length) {
-            currentGamePhase = 3; currentIndex = 0;
+            currentGamePhase = 25; currentIndex = 0; // Chuyển sang Vòng 2.5
         } else {
             renderSpeakLayout(currentVocabList[currentIndex], 'word');
             return;
         }
     }
 
-    if (currentGamePhase === 3) {
+    // VÒNG 2.5: Trắc nghiệm điền khuyết cấu trúc câu Ngữ Pháp
+    if (currentGamePhase === 25) {
         if (currentIndex >= unitData.grammar.length) {
-            currentGamePhase = 4; currentIndex = 0;
+            currentGamePhase = 26; currentIndex = 0; // Luồng phụ: Tập đọc câu Ngữ Pháp đầy đủ trước khi đóng vai
+        } else {
+            renderGrammarClozeLayout(unitData.grammar[currentIndex]);
+            return;
+        }
+    }
+
+    // LUỒNG PHỤ: Cho bé tập phát âm mẫu câu Ngữ Pháp (Hỗ trợ chuẩn bị bước vào Vòng 3 Hội thoại)
+    if (currentGamePhase === 26) {
+        if (currentIndex >= unitData.grammar.length) {
+            currentGamePhase = 3; currentIndex = 0; // Chính thức bước vào Vòng 3 Hội thoại
         } else {
             renderSpeakLayout(unitData.grammar[currentIndex], 'grammar');
             return;
         }
     }
 
-    if (currentGamePhase === 4) {
+    // VÒNG 3: Đóng vai đối thoại tương tác hoạt họa 2 bên
+    if (currentGamePhase === 3) {
         if (currentIndex >= unitData.dialogs.length) {
             changeScreen('screen-result');
             playLocalAudio("assets/audio/khen_hoanthanh.mp3");
@@ -133,6 +167,10 @@ function loadTask() {
 
 function renderQuizLayout(item, type) {
     changeScreen('screen-quiz');
+    document.getElementById('quiz-heading').innerText = "Vòng 1: Thử Tài Tinh Mắt 👀";
+    document.getElementById('quiz-instruction').innerText = "Bé nhìn hình minh họa và bấm chọn từ tiếng Anh đúng nhất nhé!";
+    if(document.getElementById('quiz-text-display')) document.getElementById('quiz-text-display').style.display = 'none';
+    
     const quizImg = document.getElementById('quiz-img');
     if (quizImg) {
         quizImg.src = `assets/images/${item.id}.png`;
@@ -140,7 +178,7 @@ function renderQuizLayout(item, type) {
     }
     document.getElementById('game-hint').innerText = "Nghĩa tiếng Việt: " + item.meaning;
 
-    let targetText = type === 'word' ? item.word : item.sentence;
+    let targetText = item.word;
     let options = [targetText, ...item.distractors].sort(() => Math.random() - 0.5);
 
     let container = document.getElementById('quiz-options-container');
@@ -157,6 +195,76 @@ function renderQuizLayout(item, type) {
     speakCurrentTarget();
 }
 
+// KHỞI CHẠY CHUẨN LOGIC VÒNG 1.5: SẮP XẾP CHỮ CÁI TỪ VỰNG KHÔNG LỖI HIỂN THỊ
+function renderSpellingLayout(item) {
+    changeScreen('screen-spelling');
+    spellingTargetWord = item.word.toLowerCase();
+    spellingCurrentAnswer = [];
+    
+    const sImg = document.getElementById('spelling-img');
+    if(sImg) {
+        sImg.src = `assets/images/${item.id}.png`;
+        sImg.style.display = 'block';
+    }
+    document.getElementById('game-hint').innerText = "Nghĩa: " + item.meaning;
+
+    // Kết xuất các ô khuyết trống gạch chân
+    const slotsContainer = document.getElementById('spelling-slots-container');
+    slotsContainer.innerHTML = "";
+    for(let i=0; i < spellingTargetWord.length; i++) {
+        let slot = document.createElement('div');
+        slot.className = "letter-slot";
+        slot.id = `sp-slot-${i}`;
+        slot.innerText = "_";
+        slotsContainer.appendChild(slot);
+    }
+
+    // Xáo trộn chữ cái của từ vựng gốc làm kho nút bấm cho bé bấm chọn
+    let lettersPool = spellingTargetWord.split("").sort(() => Math.random() - 0.5);
+    const poolContainer = document.getElementById('spelling-pool-container');
+    poolContainer.innerHTML = "";
+    
+    lettersPool.forEach((letter, idx) => {
+        let btn = document.createElement('button');
+        btn.className = "letter-btn";
+        btn.innerText = letter.toUpperCase();
+        btn.id = `let-btn-${idx}`;
+        btn.onclick = () => selectSpellingLetter(btn, letter);
+        poolContainer.appendChild(btn);
+    });
+}
+
+function selectSpellingLetter(btn, letter) {
+    if(spellingCurrentAnswer.length < spellingTargetWord.length) {
+        btn.classList.add('used');
+        spellingCurrentAnswer.push({ letter: letter, btnId: btn.id });
+        
+        let currentIdx = spellingCurrentAnswer.length - 1;
+        document.getElementById(`sp-slot-${currentIdx}`).innerText = letter.toUpperCase();
+        
+        // Kiểm tra khi bé đã xếp đủ số lượng chữ cái
+        if(spellingCurrentAnswer.length === spellingTargetWord.length) {
+            let finalStr = spellingCurrentAnswer.map(x => x.letter).join("");
+            if(finalStr === spellingTargetWord) {
+                playLocalAudio("assets/audio/khen_dung.mp3");
+                setTimeout(() => { completedTasks++; currentIndex++; updateProgressBar(); loadTask(); }, 1200);
+            } else {
+                playLocalAudio("assets/audio/khen_sai.mp3");
+                setTimeout(() => { clearSpellingAnswer(); }, 1200);
+            }
+        }
+    }
+}
+
+function clearSpellingAnswer() {
+    spellingCurrentAnswer = [];
+    for(let i=0; i < spellingTargetWord.length; i++) {
+        const slot = document.getElementById(`sp-slot-${i}`);
+        if(slot) slot.innerText = "_";
+    }
+    document.querySelectorAll('.letter-btn').forEach(btn => btn.classList.remove('used'));
+}
+
 function renderSpeakLayout(item, type) {
     changeScreen('screen-speak');
     document.getElementById('speak-vocab-area').style.display = 'block';
@@ -171,7 +279,7 @@ function renderSpeakLayout(item, type) {
         if(speakImg) { speakImg.src = `assets/images/${item.id}.png`; speakImg.style.display = 'block'; }
         document.getElementById('game-hint').innerText = "Nghĩa: " + item.meaning;
     } else {
-        document.getElementById('speak-title').innerText = "Vòng 2.5: Luyện Câu Ngữ Pháp 🧩";
+        document.getElementById('speak-title').innerText = "Vòng 2.7: Luyện Câu Ngữ Pháp 🧩";
         if(speakWord) speakWord.innerText = item.sentence;
         if(speakImg) { speakImg.src = `assets/images/${item.id}.png`; speakImg.style.display = 'block'; }
         document.getElementById('game-hint').innerText = item.hint_vn;
@@ -179,6 +287,45 @@ function renderSpeakLayout(item, type) {
     speakCurrentTarget();
 }
 
+// KHỞI CHẠY CHUẨN LOGIC VÒNG 2.5: ĐỤC LỖ CÂU NGỮ PHÁP BIẾN THIÊN NGẪU NHIÊN
+function renderGrammarClozeLayout(item) {
+    changeScreen('screen-quiz');
+    document.getElementById('quiz-heading').innerText = "Vòng 2.5: Điền Từ Vào Chỗ Trống 🧠";
+    document.getElementById('quiz-instruction').innerText = "Bé hãy bấm chọn từ thích hợp để hoàn thành mẫu câu dưới đây nhé!";
+    document.getElementById('quiz-img').style.display = 'none';
+    
+    let words = item.sentence.split(" ");
+    let validIndices = [];
+    words.forEach((w, index) => { if(w.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").length > 2) validIndices.push(index); });
+    let targetIndex = validIndices[Math.floor(Math.random() * validIndices.length)];
+    
+    let correctWord = words[targetIndex].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
+    words[targetIndex] = "_______";
+    
+    const textDisplay = document.getElementById('quiz-text-display');
+    if(textDisplay) {
+        textDisplay.innerText = words.join(" ");
+        textDisplay.style.display = 'block';
+    }
+    
+    document.getElementById('game-hint').innerText = "Dịch nghĩa câu câu: " + item.meaning;
+
+    let options = [correctWord, ...item.distractors].sort(() => Math.random() - 0.5);
+    let container = document.getElementById('quiz-options-container');
+    if (container) {
+        container.innerHTML = "";
+        options.forEach(opt => {
+            let cleanOpt = opt.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
+            let btn = document.createElement('button');
+            btn.className = "option-btn";
+            btn.innerText = cleanOpt;
+            btn.onclick = () => checkQuizAnswer(btn, cleanOpt, correctWord);
+            container.appendChild(btn);
+        });
+    }
+}
+
+// VÒNG 3: ĐÓNG VAI HOẠT HỌA 2 BÊN VÀ TỰ ĐỘNG PHÁT THOẠI ĐÔI LIÊN TIẾP THÔNG MINH
 function renderDialogLayout(item) {
     changeScreen('screen-speak');
     document.getElementById('speak-vocab-area').style.display = 'none';
@@ -189,12 +336,31 @@ function renderDialogLayout(item) {
     document.getElementById('bubble-user').innerText = "👉 Con hãy đọc: " + item.suggested_user;
     document.getElementById('game-hint').innerText = "Dịch nghĩa: " + item.hint_vn;
 
-    // ĐỒNG BỘ: Gọi trực tiếp thuộc tính file audio máy từ JSON
-    playLocalAudio(item.audio_machine);
+    if(document.getElementById('avatar-beth')) document.getElementById('avatar-beth').classList.add('speaking');
+    
+    const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+    
+    // Đồng bộ gọi chuẩn file audio_machine từ tệp dữ liệu JSON
+    let audioBeth = new Audio(`${baseUrl}/${item.audio_machine}`);
+    
+    audioBeth.play().then(() => {
+        audioBeth.onended = () => {
+            if(document.getElementById('avatar-beth')) document.getElementById('avatar-beth').classList.remove('speaking');
+            if(document.getElementById('avatar-van')) document.getElementById('avatar-van').classList.add('speaking');
+            
+            // Tự động nối tiếp phát file audio_user (lời mẫu của Vân) giúp con nghe lấy ngữ điệu chuẩn
+            let audioVanSample = new Audio(`${baseUrl}/${item.audio_user}`);
+            audioVanSample.play().then(() => {
+                audioVanSample.onended = () => {
+                    if(document.getElementById('avatar-van')) document.getElementById('avatar-van').classList.remove('speaking');
+                };
+            });
+        };
+    }).catch(() => { speakCurrentTarget(); });
 }
 
 function checkQuizAnswer(btn, selected, correct) {
-    if (selected === correct) {
+    if (selected.toLowerCase() === correct.toLowerCase()) {
         btn.classList.add('correct');
         playLocalAudio("assets/audio/khen_dung.mp3");
         setTimeout(() => { completedTasks++; currentIndex++; updateProgressBar(); loadTask(); }, 1200);
@@ -211,7 +377,7 @@ function playLocalAudio(filePath) {
     const absolutePath = filePath.startsWith('http') ? filePath : `${baseUrl}/${filePath}`;
     
     let audio = new Audio(absolutePath);
-    audio.play().catch(e => console.log("Thiếu file audio local: ", filePath));
+    audio.play().catch(e => console.log("Thiếu tệp tin âm thanh cục bộ: ", filePath));
 }
 
 function getSimilarityScore(s1, s2) {
@@ -264,11 +430,15 @@ function toggleListening() {
     if (isFallbackActive || !recognition) return;
     if (isListening) {
         isListening = false; recognition.stop(); clearTimeout(micTimeoutTimer); setMicListeningState(false);
+        if(document.getElementById('avatar-van')) document.getElementById('avatar-van').classList.remove('speaking');
     } else {
         isListening = true;
         try {
             recognition.start(); setMicListeningState(true);
-            if (document.getElementById('speech-live-text')) document.getElementById('speech-live-text').innerText = "🎙️ Đang lắng nghe... Con nói đi nào!";
+            if(document.getElementById('avatar-van')) document.getElementById('avatar-van').classList.add('speaking');
+            
+            const liveText = document.getElementById('speech-live-text');
+            if (liveText) liveText.innerText = "🎙️ Đang lắng nghe... Con nói đi nào!";
             micTimeoutTimer = setTimeout(() => {
                 if (isListening) { isListening = false; recognition.stop(); activateFallbackQuiz(); }
             }, 8000);
@@ -287,8 +457,8 @@ function evaluateSpeech(spokenText) {
     let threshold = 0.55;
 
     if (currentGamePhase === 2) targetText = currentVocabList[currentIndex].word;
-    else if (currentGamePhase === 3) targetText = unitData.grammar[currentIndex].sentence;
-    else if (currentGamePhase === 4) {
+    else if (currentGamePhase === 26) targetText = unitData.grammar[currentIndex].sentence;
+    else if (currentGamePhase === 3) {
         let isMatch = unitData.dialogs[currentIndex].accept_keywords.some(key => getSimilarityScore(spokenText, key) >= threshold);
         if (isMatch) processSpeechSuccess(); else processSpeechFail();
         return;
@@ -298,11 +468,13 @@ function evaluateSpeech(spokenText) {
 }
 
 function processSpeechSuccess() {
+    if(document.getElementById('avatar-van')) document.getElementById('avatar-van').classList.remove('speaking');
     playLocalAudio("assets/audio/khen_dung.mp3");
     setTimeout(() => { completedTasks++; currentIndex++; updateProgressBar(); loadTask(); }, 1500);
 }
 
 function processSpeechFail() {
+    if(document.getElementById('avatar-van')) document.getElementById('avatar-van').classList.remove('speaking');
     attemptCounter++;
     if (attemptCounter >= MAX_ATTEMPTS) {
         const skipBtn = document.getElementById('global-skip-btn');
@@ -315,38 +487,39 @@ function processSpeechFail() {
     }
 }
 
-// 🛠️ ĐÃ VÁ: KHẮC PHỤC TRIỆT ĐỂ LỖI CRASH HỆ THỐNG TẠI PHASE 4 KHI GỌI SAI MÀN HÌNH QUIZ
+// BẢN VÁ KHÓA LỖI CRASH PHASE 4 (VÒNG 3) KHI MICRO BỊ TIMEOUT
 function activateFallbackQuiz() {
     if (isFallbackActive) return;
-    
     let unitData = ALL_DATA[currentUnitId];
     
-    // Nếu lỗi ở vòng hội thoại (Phase 4), tuyệt đối không mở QuizLayout gây crash dữ liệu oan
-    if (currentGamePhase === 4) {
+    if (currentGamePhase === 3) {
         playLocalAudio("assets/audio/khen_sai.mp3");
-        // Giữ mạch chơi cho bé bằng cách hiển thị trực tiếp nút Bỏ Qua nhấp nháy
         const skipBtn = document.getElementById('global-skip-btn');
         if (skipBtn) skipBtn.classList.add('highlighted');
         return;
     }
     
-    // Đối với các vòng nói từ vựng/ngữ pháp (Phase 2 & 3), mở trắc nghiệm Quiz dự phòng như cũ
     isFallbackActive = true;
     playLocalAudio("assets/audio/khen_sai.mp3");
     
     setTimeout(() => {
         if (currentGamePhase === 2) renderQuizLayout(currentVocabList[currentIndex], 'word');
-        else if (currentGamePhase === 3) renderQuizLayout(unitData.grammar[currentIndex], 'sentence');
+        else if (currentGamePhase === 26) renderQuizLayout(unitData.grammar[currentIndex], 'sentence');
     }, 1000);
 }
 
 function speakCurrentTarget() {
     let unitData = ALL_DATA[currentUnitId];
+    const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
     let fileToPlay = "";
-    if (currentGamePhase === 1 || currentGamePhase === 2) fileToPlay = currentVocabList[currentIndex].audio_file;
-    else if (currentGamePhase === 3) fileToPlay = unitData.grammar[currentIndex].audio_file;
-    else if (currentGamePhase === 4) fileToPlay = unitData.dialogs[currentIndex].audio_machine;
+    
+    if (currentGamePhase === 1 || currentGamePhase === 2 || currentGamePhase === 15) fileToPlay = currentVocabList[currentIndex].audio_file;
+    else if (currentGamePhase === 25 || currentGamePhase === 26) fileToPlay = unitData.grammar[currentIndex].audio_file;
+    else if (currentGamePhase === 3) fileToPlay = unitData.dialogs[currentIndex].audio_machine;
 
+    if(currentGamePhase === 3 && document.getElementById('avatar-beth')) {
+        document.getElementById('avatar-beth').classList.add('speaking');
+    }
     playLocalAudio(fileToPlay);
 }
 

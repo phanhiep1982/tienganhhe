@@ -54,7 +54,7 @@
         }
         .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #3dbbb2; }
         .btn-success { background-color: var(--success-color); box-shadow: 0 4px 0 #10ac84; }
-        .btn-success:active { box-shadow: 0 4px 0 #10ac84; }
+        .btn-success:active { box-shadow: 0 1px 0 #10ac84; }
 
         .screen { display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; }
         .screen.active { display: flex; animation: fadeIn 0.3s ease; }
@@ -65,13 +65,14 @@
         }
 
         .card-image {
-            width: 160px; height: 160px; object-fit: contain;
+            width: 150px; height: 160px; object-fit: contain;
             border: 5px solid #f0f0f0; border-radius: 15px;
             margin: 10px 0; background: #fafafa;
         }
 
-        .word-display { font-size: 32px; font-weight: bold; color: var(--primary-color); margin: 5px 0; }
+        .word-display { font-size: 34px; font-weight: bold; color: var(--primary-color); margin: 5px 0; }
 
+        /* Khung Trắc nghiệm */
         .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; max-width: 460px; margin-top: 10px; }
         
         .option-btn {
@@ -83,6 +84,15 @@
         .option-btn.correct { background-color: #d4edda; border-color: var(--success-color); color: #155724; box-shadow: none; }
         .option-btn.wrong { background-color: #f8d7da; border-color: var(--primary-color); color: #721c24; box-shadow: none; }
 
+        /* CẤU TRÚC GIAO DIỆN VÒNG 1.5: SẮP XẾP CHỮ CÁI */
+        .spelling-slots { display: flex; justify-content: center; gap: 8px; margin: 15px 0; min-height: 45px; }
+        .letter-slot { width: 40px; height: 45px; border-bottom: 4px solid var(--text-color); font-size: 28px; font-weight: bold; color: var(--primary-color); display: flex; align-items: center; justify-content: center; }
+        .spelling-pool { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; max-width: 500px; }
+        .letter-btn { background: #fff; border: 2px solid var(--secondary-color); color: var(--text-color); font-size: 22px; font-weight: bold; width: 45px; height: 45px; border-radius: 10px; cursor: pointer; box-shadow: 0 3px 0 var(--secondary-color); transition: all 0.1s; }
+        .letter-btn:active { transform: translateY(2px); box-shadow: none; }
+        .letter-btn.used { opacity: 0.3; pointer-events: none; }
+
+        /* Khung Micro nói */
         .mic-container { margin: 10px 0; }
         .mic-btn {
             width: 75px; height: 75px; border-radius: 50%;
@@ -98,10 +108,21 @@
             100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
         }
 
-        .chat-container { width: 100%; max-width: 550px; margin: 10px 0; display: flex; flex-direction: column; }
-        .chat-bubble { padding: 10px 15px; border-radius: 15px; margin: 5px 0; max-width: 80%; font-size: 16px; text-align: left; }
-        .bubble-machine { background-color: #e3f2fd; color: #1565c0; align-self: flex-start; border-bottom-left-radius: 2px; }
-        .bubble-user { background-color: #e8f5e9; color: #2e7d32; align-self: flex-end; border-bottom-right-radius: 2px; border: 2px dashed var(--success-color); }
+        /* KHUNG HỘI THOẠI ĐỐI DIỆN HOẠT HỌA HAI BÊN */
+        .chat-container { width: 100%; max-width: 580px; margin: 10px 0; display: flex; flex-direction: column; }
+        .dialog-row { display: flex; align-items: center; margin: 8px 0; width: 100%; }
+        .dialog-row.user-row { flex-direction: row-reverse; }
+        
+        .avatar {
+            width: 60px; height: 60px; border-radius: 50%; border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 0 10px; background: #fff;
+        }
+        .avatar.speaking { animation: avatarBounce 0.6s infinite alternate; border-color: var(--secondary-color); }
+        @keyframes avatarBounce { from { transform: translateY(0); } to { transform: translateY(-8px); } }
+
+        .chat-bubble { padding: 12px 18px; border-radius: 18px; font-size: 18px; text-align: left; max-width: 65%; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .bubble-machine { background-color: #e3f2fd; color: #1565c0; border-bottom-left-radius: 2px; }
+        .bubble-user { background-color: #e8f5e9; color: #2e7d32; border-bottom-right-radius: 2px; border: 2px dashed var(--success-color); }
 
         .control-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; border-top: 2px solid #f0f0f0; padding-top: 10px; margin-top: 10px; }
         .hint-text { font-size: 14px; color: #7f8c8d; font-style: italic; max-width: 70%; text-align: left; }
@@ -131,12 +152,27 @@
 
         <div id="screen-quiz" class="screen">
             <h2 id="quiz-heading">Vòng 1: Thử Tài Tinh Mắt 👀</h2>
-            <p class="instruction">Bé nhìn hình và bấm chọn từ tiếng Anh đúng nhất!</p>
-            <img id="quiz-img" class="card-image" src="" alt="" medals="" onerror="this.style.display='none';">
+            <p id="quiz-instruction" class="instruction">Bé nhìn hình/mẫu câu và bấm chọn đáp án đúng nhất!</p>
+            <img id="quiz-img" class="card-image" src="" alt="" onerror="this.style.display='none';">
+            <div id="quiz-text-display" class="word-display" style="display:none; font-size:26px; margin:15px 0;"></div>
             <div>
-                <button class="btn" style="padding: 5px 15px; font-size: 13px; box-shadow: 0 2px 0 #3dbbb2;" onclick="speakCurrentTarget()">🔈 Nghe Máy Đọc mẫu</button>
+                <button class="btn" style="padding: 5px 15px; font-size: 13px; box-shadow: 0 2px 0 #3dbbb2;" onclick="speakCurrentTarget()">🔈 Nghe Mẫu</button>
             </div>
             <div id="quiz-options-container" class="quiz-options"></div>
+        </div>
+
+        <div id="screen-spelling" class="screen">
+            <h2>Vòng 1.5: Thử Thách Ghép Từ 🧩</h2>
+            <p class="instruction">Bấm vào các chữ cái bên dưới để sắp xếp thành từ vựng đúng nhé!</p>
+            <img id="spelling-img" class="card-image" src="" alt="" onerror="this.style.display='none';">
+            
+            <div id="spelling-slots-container" class="spelling-slots"></div>
+            
+            <div style="margin: 5px 0;">
+                <button class="btn" style="padding: 4px 12px; font-size: 13px; background:#e74c3c; box-shadow:0 2px 0 #c0392b;" onclick="clearSpellingAnswer()">🔄 Làm lại ô chữ</button>
+            </div>
+            
+            <div id="spelling-pool-container" class="spelling-pool"></div>
         </div>
 
         <div id="screen-speak" class="screen">
@@ -145,13 +181,18 @@
             
             <div id="speak-vocab-area" style="width:100%;">
                 <img id="speak-img" class="card-image" src="" alt="" onerror="this.style.display='none';">
-                <div id="speak-word" class="word-display">happy</div>
+                <div id="speak-word" class="word-display">...</div>
             </div>
 
             <div id="speak-dialog-area" class="chat-container" style="display:none;">
-                <img id="dialog-context-img" class="card-image" src="" alt="" style="width:100px; height:100px; margin:0 auto 5px auto;" onerror="this.style.display='none';">
-                <div id="bubble-machine" class="chat-bubble bubble-machine">...</div>
-                <div id="bubble-user" class="chat-bubble bubble-user">...</div>
+                <div class="dialog-row machine-row">
+                    <img id="avatar-beth" class="avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Beth&backgroundColor=b6e3f4" alt="Beth">
+                    <div id="bubble-machine" class="chat-bubble bubble-machine">...</div>
+                </div>
+                <div class="dialog-row user-row" style="margin-top: 15px;">
+                    <img id="avatar-van" class="avatar" src="https://api.dicebear.com/7.x/adventurer/svg?seed=ThanhVan&hair=longBobs&hairColor=black" alt="Thanh Vân">
+                    <div id="bubble-user" class="chat-bubble bubble-user">...</div>
+                </div>
             </div>
 
             <div style="margin-bottom: 5px;">
@@ -184,4 +225,3 @@
     <script src="app.js"></script>
 </body>
 </html>
-

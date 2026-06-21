@@ -1,94 +1,24 @@
 {
   "unit1": {
-    "title": "Feelings & Emotions",
+    "title": "Feelings",
     "vocabulary": [
-      {
-        "id": "u1_v1",
-        "word": "Happy",
-        "meaning": "Vui vẻ, hạnh phúc",
-        "distractors": ["Sad", "Sleepy", "Angry"]
-      },
-      {
-        "id": "u1_v2",
-        "word": "Sad",
-        "meaning": "Buồn bã",
-        "distractors": ["Happy", "Sick", "Hot"]
-      },
-      {
-        "id": "u1_v3",
-        "word": "Sleepy",
-        "meaning": "Buồn ngủ",
-        "distractors": ["Scared", "Cold", "Happy"]
-      },
-      {
-        "id": "u1_v4",
-        "word": "Angry",
-        "meaning": "Tức giận, giận dữ",
-        "distractors": ["Sad", "Sick", "Windy"]
-      },
-      {
-        "id": "u1_v5",
-        "word": "Sick",
-        "meaning": "Bị ốm, bị bệnh",
-        "distractors": ["Angry", "Happy", "Cold"]
-      },
-      {
-        "id": "u1_v6",
-        "word": "Hot",
-        "meaning": "Nóng nực",
-        "distractors": ["Cold", "Sad", "Sleepy"]
-      },
-      {
-        "id": "u1_v7",
-        "word": "Cold",
-        "meaning": "Lạnh lẽo",
-        "distractors": ["Hot", "Scared", "Sick"]
-      },
-      {
-        "id": "u1_v8",
-        "word": "Scared",
-        "meaning": "Sợ hãi",
-        "distractors": ["Happy", "Sleepy", "Angry"]
-      }
+      { "id": "u1_v1", "word": "happy", "meaning": "Vui vẻ", "audio_file": "assets/audio/u1_v1.mp3", "distractors": ["sad", "sleepy", "angry"] },
+      { "id": "u1_v2", "word": "sad", "meaning": "Buồn bã", "audio_file": "assets/audio/u1_v2.mp3", "distractors": ["happy", "hot", "cold"] },
+      { "id": "u1_v3", "word": "sleepy", "meaning": "Buồn ngủ", "audio_file": "assets/audio/u1_v3.mp3", "distractors": ["angry", "sick", "happy"] },
+      { "id": "u1_v4", "word": "angry", "meaning": "Tức giận", "audio_file": "assets/audio/u1_v4.mp3", "distractors": ["scared", "sleepy", "hot"] },
+      { "id": "u1_v5", "word": "sick", "meaning": "Bị ốm/Bệnh", "audio_file": "assets/audio/u1_v5.mp3", "distractors": ["cold", "happy", "sad"] },
+      { "id": "u1_v6", "word": "hot", "meaning": "Nóng nực", "audio_file": "assets/audio/u1_v6.mp3", "distractors": ["cold", "angry", "sleepy"] },
+      { "id": "u1_v7", "word": "cold", "meaning": "Lạnh giá", "audio_file": "assets/audio/u1_v7.mp3", "distractors": ["hot", "sick", "scared"] },
+      { "id": "u1_v8", "word": "scared", "meaning": "Sợ hãi", "audio_file": "assets/audio/u1_v8.mp3", "distractors": ["sick", "angry", "happy"] }
     ],
     "grammar": [
-      {
-        "id": "u1_g1",
-        "sentence": "I am scared",
-        "meaning": "Con đang sợ hãi",
-        "hint_vn": "Luyện nói câu: Con đang sợ hãi",
-        "distractors": ["happy", "weather", "kitchen", "time"]
-      },
-      {
-        "id": "u1_g2",
-        "sentence": "Are you scared",
-        "meaning": "Bạn có sợ hãi không?",
-        "hint_vn": "Luyện nói câu hỏi: Bạn có sợ hãi không?",
-        "distractors": ["you", "scared", "happy", "like"]
-      }
+      { "id": "u1_g1", "sentence": "I'm scared.", "meaning": "Tớ đang sợ hãi.", "audio_file": "assets/audio/u1_g1.mp3", "distractors": ["happy", "weather", "kitchen", "time"], "hint_vn": "Cấu trúc: 'I'm + cảm xúc' để diễn tả tâm trạng." },
+      { "id": "u1_g2", "sentence": "Are you scared?", "meaning": "Cậu có sợ không?", "audio_file": "assets/audio/u1_g2.mp3", "distractors": ["you", "scared", "happy", "like"], "hint_vn": "Cấu trúc: 'Are you + cảm xúc?' dùng để hỏi thăm." }
     ],
     "dialogs": [
-      {
-        "id": "u1_d1",
-        "speaker_machine": "Hi, Beth. How are you?",
-        "suggested_user": "I am OK. And you?",
-        "hint_vn": "Beth chào và hỏi thăm. Con hãy đáp lại là con ổn nhé!",
-        "accept_keywords": ["i am ok", "ok and you", "i'm ok and you"]
-      },
-      {
-        "id": "u1_d2",
-        "speaker_machine": "I am great, thanks. What is that?",
-        "suggested_user": "I do not know",
-        "hint_vn": "Beth bảo bạn ấy tuyệt và hỏi vật gì kia. Con hãy đáp là con không biết.",
-        "accept_keywords": ["i do not know", "i don't know", "don't know"]
-      },
-      {
-        "id": "u1_d3",
-        "speaker_machine": "It is a small dog! Are you scared?",
-        "suggested_user": "No, I am not",
-        "hint_vn": "Beth bảo đó là chú chó nhỏ và hỏi con sợ không. Hãy trả lời là không nhé!",
-        "accept_keywords": ["no i am not", "no i'm not", "i am not"]
-      }
+      { "id": "u1_d1", "speaker_machine": "Hi, Beth. How are you?", "suggested_user": "I'm OK. And you?", "audio_machine": "assets/audio/u1_d1_m.mp3", "audio_user": "assets/audio/u1_d1_u.mp3", "accept_keywords": ["i am ok", "im ok"], "hint_vn": "Chào Beth, cậu khỏe không? -> Tớ ổn. Còn cậu?" },
+      { "id": "u1_d2", "speaker_machine": "I'm great, thanks. What's that?", "suggested_user": "I don't know.", "audio_machine": "assets/audio/u1_d2_m.mp3", "audio_user": "assets/audio/u1_d2_u.mp3", "accept_keywords": ["i dont know", "i don't know"], "hint_vn": "Tớ khỏe, cám ơn! Cái gì kia thế? -> Tớ không biết nữa." },
+      { "id": "u1_d3", "speaker_machine": "It's a small dog! Are you scared?", "suggested_user": "No, I'm not.", "audio_machine": "assets/audio/u1_d3_m.mp3", "audio_user": "assets/audio/u1_d3_u.mp3", "accept_keywords": ["no im not", "no i'm not"], "hint_vn": "Một chú chó nhỏ đấy! Cậu có sợ không? -> Không, tớ không sợ." }
     ]
   }
 }
